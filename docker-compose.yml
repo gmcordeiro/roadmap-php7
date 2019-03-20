@@ -1,0 +1,42 @@
+version: "3"
+volumes:
+  roadmap:
+    driver: local
+
+services:
+  roadmap-php:
+    image: ambientum/php:7.1-apache
+    container_name: roadmap-php
+    volumes:
+      - .:/var/www/html
+      - ./dockerfiles/config/php.ini:/usr/local/etc/php/php.ini
+      - ./dockerfiles/config/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+    ports:
+      - "80:8080"
+    expose:
+      - "9090"
+    environment:
+      # export {http,https,ftp}_proxy="http://172.16.0.1:3128"
+      http_proxy: ${http_proxy}
+      https_proxy: ${https_proxy}
+      ftp_proxy: ${ftp_proxy}
+      XDEBUG_ENABLED: 1
+      # export XDEBUG_REMOTE_HOST=$(ifconfig eth0 | grep 'inet addr:' | cut -d: -f2 | awk '{ print $1}')
+      XDEBUG_CONFIG: remote_host=${XDEBUG_REMOTE_HOST}
+    links:
+      - roadmap-mysql
+
+  roadmap-mysql:
+    image: ambientum/mysql:5.7
+    container_name: roadmap-mysql
+    volumes:
+      - .:/var/www/app
+      - .:/srv/www/htdocs/roadmap
+      - roadmap:/var/lib/mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=roadmap-php7
+      - MYSQL_USER=siga
+      - MYSQL_PASSWORD=siga
