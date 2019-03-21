@@ -1,5 +1,7 @@
 # Roadmap - php7
 Apesar de não estar descrito no Roadmap quero usar o docker para facilitar minha vida, por isso estou pesquisando mais sobre o assunto e achei esse site para começar:
+ - [ ] https://www.mundodocker.com.br/tutoriais/
+ - [ ] https://www.mundodocker.com.br/desenvolvimento-com-docker/
  - [ ] http://phpba.com.br/docker-php/
  - [ ] Entender o que é docker e criar um container para rodar as aplicações praticas.
 
