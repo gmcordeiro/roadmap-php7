@@ -8,7 +8,7 @@ services:
     image: ambientum/php:7.1-apache
     container_name: roadmap-php
     volumes:
-      - .:/var/www/html
+      - .:/var/www/app
       - ./dockerfiles/config/php.ini:/usr/local/etc/php/php.ini
       - ./dockerfiles/config/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     ports:
